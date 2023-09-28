@@ -1,5 +1,4 @@
 .lower_box{
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,10 +11,8 @@
 .mic-animation{
 
     position: relative;
-    /* background-color: green; */
     width: 100%;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
 }
 .circle{
@@ -27,21 +24,16 @@
     width: auto;
     left: 40%;
 }
-.red-circle{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    padding: 15px;
-    border: 10px solid #ff0008;
-}
 .lower_box_activebgc{
     background-color: #ffffff;
 }
 .lower_box_speakenable{
     background-color: #c0daf8;
+}
+.conclude{
+    color: #ff0000;
+    font-weight: 500;
+    padding: 10px;
 }
 .rip{
     position: relative;
@@ -52,14 +44,14 @@
     background-color:#434242;
     height: 50px;
     width: 50px;
-    /* left: -10%; */
     right: 10%;
     border-radius: 50%;
-    box-shadow: 0 0 0 .7rem #6b6b6b,
-    0 0 0 1.5rem  #cdc4c4,
-    0 0 0 2rem #f0ecec;
+    box-shadow: 0 0 0 1rem #6b6b6b,
+    0 0 0 2.2rem  #cdc4c4,
+    0 0 0 3rem #f0ecec;
     z-index: 99;
 }
+/*after affect of passing the props*/
 .rip-ani{
     position: relative;
     display: flex;
@@ -69,12 +61,12 @@
     height: 50px;
     width: 50px;
     left: 24.5%;
-    /* right: 20%; */
     border-radius: 50%;
     z-index: 99;
     animation: rip 2s ease-in-out infinite reverse;
 
 }
+/* animation for rip */
 @keyframes rip {
     0% {
         box-shadow: 0 0 0 .7rem #33a4ff,
@@ -82,9 +74,9 @@
                     0 0 0 2rem #ffffff;
       }
       100% {
-        box-shadow: 0 0 0 .7rem #33a4ff44,
-                    0 0 0 1.5rem  #58b5ff44,
-                    0 0 0 2rem #addbff44;
+        box-shadow: 0 0 0 1rem #33a4ff44,
+                    0 0 0 2.5rem  #58b5ff44,
+                    0 0 0 3rem #addbff44;
       }
 }
 .svg{

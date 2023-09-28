@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Box2.css";
 //react countdown-circle-timer imported
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //create a function to apply the changes
 export default function Box2(props) {
-  const [count, setcount] = useState({timeValue:props.timeValue});
   const [play, setPlay] = useState(false)
+  const[popupMsg, setpopupMsg] = useState(false)
 //fetching data and updating the DOM and timer which would depend upon two parameter 1.count, and 2.fetching the data from app.jsx
- useEffect(() => {
-    if (props.allowSpeak) {
-      if (play === false) {
-        setPlay(true)
-        // console.log("setPlay:",play)
-      }
+const [timer, setTimer] = useState(60);
+  const id =useRef(null);
+  const clear=()=>{
+  window.clearInterval(id.current)
+}
+ useEffect(()=>{
+  if (props.allowSpeak) {
+    if (play === false) {
+      setPlay(true)
+      // console.log("setPlay:",play)
+      id.current=window.setInterval(()=>{
+        setTimer((time)=>time-1)
+      },1000)
+      return ()=>clear();
     }
-    // decreasing the time until it turns into 0
-    if (props.allowSpeak) {
-      const timer = setInterval(() => {
-        // console.log("seconds ", count.timeValue);
-        let temp = count.timeValue-1;
-        setcount((count) =>{return {...count, timeValue:temp}})
-        // console.log("Updated seconds ", count.timeValue);
-      }, 1000);
+  }
+    
+  },[props.allowSpeak])
 
-    // stopping the countdown when value turn into 0
-      if (count.timeValue == 0) {
-        clearInterval(timer);
-        setPlay(false)
-      } 
-      return () => clearInterval(timer);
+ useEffect(()=>{
+        if (timer === 10) {
+        setpopupMsg(true)
+      }
+    if(timer===0){
+      clear();
+      setPlay(false)
     }
-  }, [count.timeValue, props.allowSpeak]);
+
+  },[timer])
 
   return (
     <div
@@ -38,19 +43,19 @@ export default function Box2(props) {
         props.box2active ? "lower_box_speakenable" : "lower_box_activebgc"
       }`}
     >
-      {/* <div className={`${props.allowSpeak ? "red-circle" :"circle"}`}> */}
+      <div className="conclude">{popupMsg && "Please conclude your answer"}</div>
       <div className="mic-animation">
       <div className="circle">
       {/* countdwon packages */}
       <CountdownCircleTimer
     isPlaying={play}
     duration={props.timeValue}
-    colors={['#004777', '#A30000', "#a43434"]}
-    colorsTime={[props.timeValue, 10, 0]}
+    colors={['#33a4ff', '#33a4ff', '#33a4ff', '#FFA500']}
+    colorsTime={[0,45,10,10]}
   >
   </CountdownCircleTimer>
       </div>
-
+      {/* two different classes for two different state */}
   <div className={`${props.allowSpeak ? "rip-ani" : "rip"}`}>
           <div className="svg">
             <svg
@@ -80,7 +85,7 @@ export default function Box2(props) {
             </svg>
           </div>
           <div className="alarm_text">
-            <span> {count.timeValue} Seconds</span>Left
+            <span> {timer} Seconds</span>Left
           </div>
         </div>
       </div>
